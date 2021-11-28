@@ -3,6 +3,8 @@ import LinkArea from "./components/LinkArea.vue";
 
 let linksData = [] as { short: string; target: string; new: boolean }[];
 
+const host = process.env.NODE_ENV === 'production' ? "" : "https://mr-pine.de/"
+
 export default Vue.extend({
     name: "App",
 
@@ -12,7 +14,7 @@ export default Vue.extend({
 
     methods: {
         async asyncStart() {
-            const res = await fetch("https://mr-pine.de/links/api/get");
+            const res = await fetch(host + "links/api/get");
             const rawlinksData = (await res.json()) as {
                 short_uri: string;
                 destination_url: string;
@@ -33,7 +35,7 @@ export default Vue.extend({
         async addLink(data: { short: string, target: string }) {
             if (this.links.find(element => element.short == data.short)) return
             console.log(data);
-            const res = await fetch("https://mr-pine.de/links/api/add", {
+            const res = await fetch(host + "links/api/add", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
@@ -53,7 +55,7 @@ export default Vue.extend({
             }
         },
         async deleteLink(short: string) {
-            const res = await fetch("https://mr-pine.de/links/api/delete", {
+            const res = await fetch(host + "links/api/delete", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
@@ -69,7 +71,7 @@ export default Vue.extend({
             }
         },
         async editLink(data: {short: string, target: string, oldShort: string}){
-            const res = await fetch("https://mr-pine.de/links/api/edit", {
+            const res = await fetch(host + "links/api/edit", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
