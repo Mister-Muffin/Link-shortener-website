@@ -3,7 +3,7 @@ import LinkArea from "./components/LinkArea.vue";
 
 let linksData = [] as { short: string; target: string; new: boolean }[];
 
-const host = process.env.NODE_ENV === 'production' ? "" : "https://mr-pine.de/"
+const host = process.env.NODE_ENV === 'production' ? "" : process.env.VUE_APP_ROOT_URL
 
 export default Vue.extend({
     name: "App",
@@ -60,7 +60,7 @@ export default Vue.extend({
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({short: short})
+                body: JSON.stringify({ short: short })
             })
             if (res.status == 200) {
                 linksData.splice(
@@ -70,7 +70,7 @@ export default Vue.extend({
                 this.links = linksData
             }
         },
-        async editLink(data: {short: string, target: string, oldShort: string}){
+        async editLink(data: { short: string, target: string, oldShort: string }) {
             const res = await fetch(host + "links/api/edit", {
                 method: "POST",
                 headers: {
@@ -88,5 +88,6 @@ export default Vue.extend({
 
     data: () => ({
         links: linksData,
+        appname: process.env.VUE_APP_NAME
     }),
 });

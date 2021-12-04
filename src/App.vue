@@ -2,7 +2,7 @@
   <v-app>
     <v-app-bar app color="primary" dark>
       <div class="d-flex align-center">
-        <h1>mr-pine.de link shortener</h1>
+        <h2>{{appname.toUpperCase()}} LINK SHORTENER</h2>
       </div>
 
       <v-spacer></v-spacer>

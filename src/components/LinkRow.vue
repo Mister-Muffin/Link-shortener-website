@@ -6,7 +6,7 @@
           <v-text-field
             label="Shortened URL"
             outlined
-            prefix="mr-pine.de/"
+            prefix="<%= VUE_APP_NAME %>/"
             hide-details="true"
             v-model="shortUrl"
             @click:append="copyToClipboard()"

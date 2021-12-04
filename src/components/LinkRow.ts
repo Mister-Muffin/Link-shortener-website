@@ -23,7 +23,7 @@ export default Vue.extend({
       this.$emit("deleteLink", this.shortUrl)
     },
     copyToClipboard() {
-      navigator.clipboard.writeText("mr-pine.de/" + this.shortUrl);
+      navigator.clipboard.writeText(`${process.env.VUE_APP_ROOT_URL}` + this.shortUrl);
       this.copied = true
       setTimeout(() => this.copied = false, 3000)
   }
