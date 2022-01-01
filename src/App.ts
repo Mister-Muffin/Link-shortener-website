@@ -14,7 +14,7 @@ export default Vue.extend({
 
     methods: {
         async asyncStart() {
-            const res = await fetch(host + "api/get");
+            const res = await fetch(host + "api");
             const rawlinksData = (await res.json()) as {
                 short_uri: string;
                 destination_url: string;
@@ -41,7 +41,7 @@ export default Vue.extend({
         async addLink(data: { short: string, target: string }) {
             if (this.links.find(element => element.short == data.short)) return
             console.log(data);
-            const res = await fetch(host + "api/add", {
+            const res = await fetch(host + "api", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
