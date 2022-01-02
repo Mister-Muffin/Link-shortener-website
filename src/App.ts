@@ -61,8 +61,8 @@ export default Vue.extend({
             }
         },
         async deleteLink(short: string) {
-            const res = await fetch(host + "api/delete", {
-                method: "POST",
+            const res = await fetch(host + "api", {
+                method: "DELETE",
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -76,9 +76,9 @@ export default Vue.extend({
                 this.links = linksData
             }
         },
-        async editLink(data: { short: string, target: string, oldShort: string }) {
-            const res = await fetch(host + "links/api/edit", {
-                method: "POST",
+        async editLink(data: { short: string, target: string, old_short: string }) {
+            const res = await fetch(host + "api", {
+                method: "PATCH",
                 headers: {
                     'Content-Type': 'application/json'
                 },

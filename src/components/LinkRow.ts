@@ -16,7 +16,7 @@ export default Vue.extend({
         this.shortUrl = ''
         this.targetUrl = ''
       } else {
-        this.$emit("editLink", {short: this.shortUrl, target: this.targetUrl, oldShort: this.short})
+        this.$emit("editLink", { short: this.shortUrl, target: this.targetUrl, old_short: this.short })
       }
     },
     deleteLink() {
@@ -26,7 +26,7 @@ export default Vue.extend({
       navigator.clipboard.writeText(`${process.env.VUE_APP_ROOT_URL}` + this.shortUrl);
       this.copied = true
       setTimeout(() => this.copied = false, 3000)
-  }
+    }
   },
 
   data() {

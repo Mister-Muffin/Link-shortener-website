@@ -21,7 +21,7 @@ export default Vue.extend({
       console.log("deleting " + short)
       this.$emit("deleteLink", short)
     },
-    editLink(data: { short: string, target: string, oldShort: string }) {
+    editLink(data: { short: string, target: string, old_short: string }) {
       console.log(data)
       this.$emit("editLink", data)
     }
