@@ -7,6 +7,7 @@
         :short="link.short"
         :target="link.target ? link.target : 'https://'"
         :isNew="link.new"
+        :caseSensitive="link.caseSensitive"
         @addLink="addLink"
         @deleteLink="deleteLink"
         @editLink="editLink"
