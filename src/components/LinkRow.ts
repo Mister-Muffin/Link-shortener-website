@@ -6,17 +6,18 @@ export default Vue.extend({
   props: [
     'short',
     'target',
-    'isNew'
+    'caseSensitive',
+    'isNew',
   ],
 
   methods: {
     submitLink() {
       if (this.isNew) {
-        this.$emit("addLink", { short: this.shortUrl, target: this.targetUrl })
+        this.$emit("addLink", { short: this.shortUrl, target: this.targetUrl, caseSensitive: this.caseSensitiveUrl })
         this.shortUrl = ''
         this.targetUrl = ''
       } else {
-        this.$emit("editLink", { short: this.shortUrl, target: this.targetUrl, old_short: this.short })
+        this.$emit("editLink", {short: this.shortUrl, target: this.targetUrl, old_short: this.short, caseSensitive: this.caseSensitiveUrl})
       }
     },
     deleteLink() {
@@ -33,7 +34,13 @@ export default Vue.extend({
     return {
       shortUrl: this.short,
       targetUrl: this.target,
-      copied: false
+      caseSensitiveUrl: this.caseSensitive,
+      copied: false,
+      rules: {
+        url: (value: string) => {
+          return value.includes("://") || value.length <= 0 || "not a valid url"
+        }
+      }
     }
-  }
+  },
 })

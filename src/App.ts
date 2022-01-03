@@ -1,7 +1,7 @@
 import Vue from "vue";
 import LinkArea from "./components/LinkArea.vue";
 
-let linksData = [] as { short: string; target: string; new: boolean }[];
+let linksData = [] as { short: string; target: string; caseSensitive: boolean; new: boolean }[];
 
 const host = process.env.NODE_ENV === 'production' ? "" : process.env.VUE_APP_ROOT_URL
 
@@ -18,12 +18,14 @@ export default Vue.extend({
             const rawlinksData = (await res.json()) as {
                 short_uri: string;
                 destination_url: string;
+                case_sensitive: boolean;
             }[];
             rawlinksData.forEach((element) => {
                 linksData = [
                     {
                         short: element.short_uri,
                         target: element.destination_url,
+                        caseSensitive: element.case_sensitive,
                         new: false,
                     },
                 ].concat(linksData);
@@ -34,11 +36,11 @@ export default Vue.extend({
             const hasStartLink = urlParams.has('new-link');
             const newTarget = hasStartLink ? urlParams.get('new-link') as string : ""
 
-            linksData = [{ short: "", target: newTarget, new: true }].concat(linksData);
+            linksData = [{ short: "", target: newTarget, caseSensitive: false, new: true }].concat(linksData);
             this.links = linksData
             console.log(linksData);
         },
-        async addLink(data: { short: string, target: string }) {
+        async addLink(data: { short: string, target: string, caseSensitive: boolean }) {
             if (this.links.find(element => element.short == data.short)) return
             console.log(data);
             const res = await fetch(host + "api", {
@@ -53,8 +55,8 @@ export default Vue.extend({
                     0,
                     1,
                     ...[
-                        { short: "", target: "", new: true },
-                        { short: data.short, target: data.target, new: false },
+                        { short: "", target: "", caseSensitive: false, new: true },
+                        { short: data.short, target: data.target, caseSensitive: data.caseSensitive, new: false },
                     ]
                 );
                 this.links = linksData
