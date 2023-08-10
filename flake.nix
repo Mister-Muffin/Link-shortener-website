@@ -11,6 +11,7 @@
     {
       devShells.${system}.default = pkgs.mkShell {
         nativeBuildInputs = with pkgs; [
+          nodejs_18
           nodePackages.pnpm
         ];
       };
